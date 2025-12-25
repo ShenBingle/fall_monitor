@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!-- 定位权限 (V3.0新增) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- 震动权限 (V3.0新增) -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!-- 保持屏幕常亮 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/ic_app_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_app_logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.UdpSensorApp"
+        tools:targetApi="31">
+
+        <!--
+             注意：上面两行 icon 和 roundIcon 已经修改为 @drawable/ic_app_logo
+             这样安装到手机上后，就会显示我们设计的“盾牌+脉冲”图标了。
+        -->
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

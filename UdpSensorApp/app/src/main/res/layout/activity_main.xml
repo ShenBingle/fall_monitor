@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <!-- 1. 顶部标题栏 -->
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#009688"
+        android:elevation="6dp"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="🛡️ 智能跌倒监护终端"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"/>
+
+        <!-- 状态指示灯 (右上角) -->
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="#B0BEC5"
+            android:text="未启动"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <!-- 2. 网络配置卡片 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:contentPadding="20dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+                        <TextView
+                            android:text="📡 通信设置"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="#00796B"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!--
+                            🔴 修复点：
+                            原本的 inputType="number|numberDecimal" 限制了只能输入一个点。
+                            修改为 inputType="text" 并配合 digits="0123456789."
+                            这样可以输入多个点，且只允许数字和点。
+                        -->
+                        <EditText
+                            android:id="@+id/et_ip"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="2"
+                            android:background="#F5F5F5"
+                            android:hint="目标 IP 地址"
+                            android:text="192.168."
+                            android:paddingHorizontal="12dp"
+                            android:textSize="15sp"
+                            android:inputType="text"
+                            android:digits="0123456789."
+                            android:maxLines="1"
+                            android:layout_marginEnd="8dp"/>
+
+                        <EditText
+                            android:id="@+id/et_port"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:background="#F5F5F5"
+                            android:hint="端口"
+                            android:text="5555"
+                            android:paddingHorizontal="12dp"
+                            android:textSize="15sp"
+                            android:inputType="number"
+                            android:maxLength="5"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_toggle"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="16dp"
+                        android:text="启动监测服务"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="#009688"
+                        app:cornerRadius="8dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. 传感器数据面板 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:contentPadding="20dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="📊 运动姿态 (IMU)"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#3F51B5"
+                        android:layout_marginBottom="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F8F9FA"
+                        android:padding="12dp"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:text="加速度 (ACC)"
+                            android:textSize="12sp"
+                            android:textColor="#757575"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_acc"
+                            android:text="0.00, 0.00, 0.00"
+                            android:fontFamily="monospace"
+                            android:textSize="16sp"
+                            android:textColor="#333"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#F8F9FA"
+                        android:padding="12dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:text="陀螺仪 (GYRO)"
+                            android:textSize="12sp"
+                            android:textColor="#757575"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_gyro"
+                            android:text="0.00, 0.00, 0.00"
+                            android:fontFamily="monospace"
+                            android:textSize="16sp"
+                            android:textColor="#555"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 4. 环境与定位 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:contentPadding="20dp"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:text="🌍 环境与定位"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#FF9800"
+                        android:layout_marginBottom="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <!-- 光照 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="#FFF3E0"
+                            android:padding="10dp"
+                            android:layout_marginEnd="8dp">
+                            <TextView android:text="💡 光照强度" android:textSize="12sp" android:textColor="#EF6C00" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                            <TextView android:id="@+id/tv_light" android:text="0.0 Lx" android:textSize="16sp" android:textStyle="bold" android:textColor="#E65100" android:layout_marginTop="4dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                        <!-- 电量 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:background="#E8F5E9"
+                            android:padding="10dp"
+                            android:layout_marginStart="8dp">
+                            <TextView android:text="🔋 剩余电量" android:textSize="12sp" android:textColor="#2E7D32" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                            <TextView android:id="@+id/tv_battery" android:text="100%" android:textSize="16sp" android:textStyle="bold" android:textColor="#1B5E20" android:layout_marginTop="4dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- GPS -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:background="#ECEFF1"
+                        android:padding="10dp">
+                        <TextView android:text="📍" android:textSize="18sp" android:layout_marginEnd="8dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_gps"
+                            android:text="GPS: 等待信号..."
+                            android:textSize="14sp"
+                            android:textColor="#455A64"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 5. 紧急呼救 (底部突出) -->
+            <Button
+                android:id="@+id/btn_sos"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:text="🆘 立即紧急呼救 (SOS)"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="#D32F2F"
+                app:cornerRadius="36dp"
+                app:icon="@android:drawable/ic_lock_idle_alarm"
+                app:iconTint="#FFFFFF"
+                app:iconSize="32dp"
+                app:iconGravity="textStart"
+                android:elevation="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
